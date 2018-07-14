@@ -11,6 +11,13 @@ const INGREDIENT_PRICES = {
     bacon: 0.7
 }
 
+const INGREDIENT_CALORIES = {
+    salad: 10,
+    cheese: 70,
+    meat: 220,
+    bacon: 100
+}
+
 class BurgerBuilder extends Component {
 
     state = {
@@ -20,7 +27,8 @@ class BurgerBuilder extends Component {
             cheese: 0,
             meat: 0
         },
-        totalPrice: 4
+        totalPrice: 4,
+        totalCalories: 200
     }
 
     addIngredientHandler = type => {
@@ -33,7 +41,10 @@ class BurgerBuilder extends Component {
         const priceAddition = INGREDIENT_PRICES[type];
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice + priceAddition;
-        this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+        const caloriesAddition = INGREDIENT_CALORIES[type];
+        const oldCalories = this.state.totalCalories;
+        const newCalories = oldCalories + caloriesAddition;
+        this.setState({totalPrice: newPrice, ingredients: updatedIngredients, totalCalories: newCalories});
     }
 
     removeIngredientHandler = type => {
@@ -47,7 +58,10 @@ class BurgerBuilder extends Component {
             const priceDeduction = INGREDIENT_PRICES[type];
             const oldPrice = this.state.totalPrice;
             const newPrice = oldPrice - priceDeduction;
-            this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+            const caloriesDeduction = INGREDIENT_CALORIES[type];
+            const oldCalories = this.state.totalCalories;
+            const newCalories = oldCalories - caloriesDeduction;
+            this.setState({totalPrice: newPrice, ingredients: updatedIngredients, totalCalories: newCalories});
         }
     }
 
@@ -65,6 +79,8 @@ class BurgerBuilder extends Component {
                 ingredientAdded={this.addIngredientHandler}
                 ingredientRemoved={this.removeIngredientHandler}
                 disabled={disabledInfo}
+                price={this.state.totalPrice}
+                calories={this.state.totalCalories}
                 />
             </Aux>
         )
