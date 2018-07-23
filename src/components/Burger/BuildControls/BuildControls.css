@@ -1,3 +1,7 @@
+p {
+    margin: 5px 5px;
+}
+
 .BuildControls {
     width: 100%;
     background-color: #CF8F2E;
@@ -6,7 +10,7 @@
     align-items: center;
     box-shadow: 0 2px 1px #ccc;
     margin: auto;
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
 .OrderButton {

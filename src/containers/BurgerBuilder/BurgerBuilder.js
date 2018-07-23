@@ -13,6 +13,13 @@ const INGREDIENT_PRICES = {
     bacon: 0.7
 };
 
+const INGREDIENT_CALORIES = {
+    salad: 20,
+    cheese: 110,
+    meat: 190,
+    bacon: 75
+}
+
 class BurgerBuilder extends Component {
     // constructor(props) {
     //     super(props);
@@ -26,6 +33,7 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 4,
+        totalCalories: 200,
         purchasable: false,
         purchasing: false
     }
@@ -51,7 +59,10 @@ class BurgerBuilder extends Component {
         const priceAddition = INGREDIENT_PRICES[type];
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice + priceAddition;
-        this.setState( { totalPrice: newPrice, ingredients: updatedIngredients } );
+        const caloriesAddition = INGREDIENT_CALORIES[type];
+        const oldCalories = this.state.totalCalories;
+        const newCalories = oldCalories + caloriesAddition;
+        this.setState( { totalPrice: newPrice, ingredients: updatedIngredients, totalCalories: newCalories } );
         this.updatePurchaseState(updatedIngredients);
     }
 
@@ -68,7 +79,10 @@ class BurgerBuilder extends Component {
         const priceDeduction = INGREDIENT_PRICES[type];
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice - priceDeduction;
-        this.setState( { totalPrice: newPrice, ingredients: updatedIngredients } );
+        const caloriesDeduction = INGREDIENT_CALORIES[type];
+        const oldCalories = this.state.totalCalories;
+        const newCalories = oldCalories + caloriesDeduction;
+        this.setState( { totalPrice: newPrice, ingredients: updatedIngredients, totalCalories: newCalories } );
         this.updatePurchaseState(updatedIngredients);
     }
 
@@ -98,6 +112,7 @@ class BurgerBuilder extends Component {
                     <OrderSummary 
                         ingredients={this.state.ingredients}
                         price={this.state.totalPrice}
+                        calories={this.state.totalCalories}
                         purchaseCancelled={this.purchaseCancelHandler}
                         purchaseContinued={this.purchaseContinueHandler} />
                 </Modal>
@@ -108,7 +123,8 @@ class BurgerBuilder extends Component {
                     disabled={disabledInfo}
                     purchasable={this.state.purchasable}
                     ordered={this.purchaseHandler}
-                    price={this.state.totalPrice} />
+                    price={this.state.totalPrice}
+                    calories={this.state.totalCalories} />
             </Aux>
         );
     }
