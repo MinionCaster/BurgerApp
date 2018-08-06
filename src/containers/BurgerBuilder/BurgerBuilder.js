@@ -91,7 +91,7 @@ class BurgerBuilder extends Component {
         const newPrice = oldPrice - priceDeduction;
         const caloriesDeduction = INGREDIENT_CALORIES[type];
         const oldCalories = this.state.totalCalories;
-        const newCalories = oldCalories + caloriesDeduction;
+        const newCalories = oldCalories - caloriesDeduction;
         this.setState( { totalPrice: newPrice, ingredients: updatedIngredients, totalCalories: newCalories } );
         this.updatePurchaseState(updatedIngredients);
     }
