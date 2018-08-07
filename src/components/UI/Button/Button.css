@@ -15,6 +15,10 @@
     padding-left: 0;
 }
 
+.Button:disabled {
+    color: #aaa;
+}
+
 .Success {
     color: #5C9210;
 }
@@ -22,3 +26,4 @@
 .Danger {
     color: #944317;
 }
+
